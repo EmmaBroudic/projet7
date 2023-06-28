@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 const booksRoutes = require('./routes/books');
 
+const userRoutes = require('./routes/user');
+
 mongoose.connect('mongodb+srv://Poppie:chat2@cluster0.asnsphz.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -24,7 +26,9 @@ app.use((req, res, next) => {
 /*app.use(bodyParser.json());*/
 
 
-app.use('Api/books', booksRoutes);
+app.use('api/books', booksRoutes);
+
+app.use('api/auth', userRoutes);
 
 app.use((req, res) => {
     console.log("réponse envoyée avec succès")
