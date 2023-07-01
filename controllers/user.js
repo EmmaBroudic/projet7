@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
             user.save()
             .then(() => res.status(201).json({ message: 'utilisateur créé' }))
             .catch(error => {
-                console.error(error); // Afficher l'erreur dans la console
+                console.error(error);
                 res.status(400).json({ error });
             });
         })

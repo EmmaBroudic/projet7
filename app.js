@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const booksRoutes = require('./routes/books');
 const userRoutes = require('./routes/user');
+const path = require('path');
 
 mongoose
   .connect('mongodb+srv://Biscuit:chat1@cluster0.asnsphz.mongodb.net/?retryWrites=true&w=majority', {
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 
 app.use('/api/books', booksRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res) => {
   console.log('Réponse envoyée avec succès');
