@@ -1,13 +1,5 @@
 const mongoose = require('mongoose');
 
-/*    userId: req.body.userId,
-    title: req.body.title,
-    author: req.body.author,
-    year: req.body.year,
-    genre: req.body.genre,
-    ratings: req.body.ratings,
-    imageUrl: req.body.imageUrl */
-
 const thingSchema = mongoose.Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },
@@ -20,7 +12,8 @@ const thingSchema = mongoose.Schema({
       grade : { type: Number, required: true }
       }
     ],
-  imageUrl: { type: String, required: true }
+  imageUrl: { type: String, required: true },
+  averageRating: { type: Number, required: true }
 });
 
 module.exports = mongoose.model('Thing', thingSchema);
