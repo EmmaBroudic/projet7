@@ -6,7 +6,7 @@ exports.createBook = (req, res, next) => {
   console.log("Test :", req.body);
   const { book } = req.body;
   const bookObject = JSON.parse(book);
-  delete bookObject._id;
+  /*delete bookObject._id;*/
   delete bookObject._userId;
   
   const data = new Book({
@@ -25,7 +25,7 @@ exports.getOneBook = (req, res, next) => {
   Book.findOne({
     _id: req.params.id
   })
-    .then((book) => {
+    .then((book) => {/*
       const ratings = book.ratings;
       let total = 0;
 
@@ -37,7 +37,7 @@ exports.getOneBook = (req, res, next) => {
       const averageRating = (total / ratings.length).toFixed(2);
 
       book = book.toObject();
-      book.averageRating = averageRating;
+      book.averageRating = averageRating;*/
 
       res.status(200).json(book);
     })
@@ -102,4 +102,37 @@ exports.getAllBooks = (req, res, next) => {
       });
     }
   );
+};
+
+exports.getBestBooks = (req, res, next) => {
+  Book.find()
+
+    .then((books) => {
+
+      console.log("ok");
+      console.log(books);
+/*
+      const averages = books.map((book) => ({
+        averageRating: book.averageRating,
+        bookId: book._id
+      }));
+
+      console.log("ok");*/
+
+      const averages = books.sort((a, b) => b.averageRating - a.averageRating);
+
+      console.log(averages);
+
+      console.log("Best book = ", averages[0]);
+      console.log("Best book = ", averages[0].bookId);
+      console.log("Deuxième best book =", averages[1]);
+      console.log("Troisième best book =", averages[2]);
+
+      res.status(200).json(averages);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error
+      });
+    });
 };

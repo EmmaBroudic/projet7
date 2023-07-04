@@ -12,6 +12,7 @@ const ratingsCtrl = require('../controllers/ratings');
 
 router.get('/', booksCtrl.getAllBooks);
 router.post('/', auth, multer, booksCtrl.createBook);
+router.get('/bestrating', booksCtrl.getBestBooks);
 router.get('/:id', booksCtrl.getOneBook);
 router.put('/:id', auth, multer, booksCtrl.modifyBook);
 router.delete('/:id', auth, booksCtrl.deleteBook);
