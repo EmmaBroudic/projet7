@@ -111,24 +111,21 @@ exports.getBestBooks = (req, res, next) => {
 
       console.log("ok");
       console.log(books);
-/*
-      const averages = books.map((book) => ({
-        averageRating: book.averageRating,
-        bookId: book._id
-      }));
-
-      console.log("ok");*/
 
       const averages = books.sort((a, b) => b.averageRating - a.averageRating);
 
+      const bestBooks = [averages[0], averages[1], averages[2]];
+
       console.log(averages);
+
+      console.log(bestBooks);
 
       console.log("Best book = ", averages[0]);
       console.log("Best book = ", averages[0].bookId);
       console.log("Deuxième best book =", averages[1]);
       console.log("Troisième best book =", averages[2]);
 
-      res.status(200).json(averages);
+      res.status(200).json(bestBooks);
     })
     .catch((error) => {
       res.status(400).json({
