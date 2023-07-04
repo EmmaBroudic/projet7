@@ -10,11 +10,11 @@ const booksCtrl = require('../controllers/books');
 
 const ratingsCtrl = require('../controllers/ratings');
 
-router.get('/', booksCtrl.getAllThings);
-router.post('/', auth, multer, booksCtrl.createThing);
-router.get('/:id', booksCtrl.getOneThing);
-router.put('/:id', auth, multer, booksCtrl.modifyThing);
-router.delete('/:id', auth, booksCtrl.deleteThing);
+router.get('/', booksCtrl.getAllBooks);
+router.post('/', auth, multer, booksCtrl.createBook);
+router.get('/:id', booksCtrl.getOneBook);
+router.put('/:id', auth, multer, booksCtrl.modifyBook);
+router.delete('/:id', auth, booksCtrl.deleteBook);
 router.post('/:id/rating', auth, ratingsCtrl.rateBook);
 
 module.exports = router;

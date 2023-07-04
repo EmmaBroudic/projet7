@@ -1,4 +1,4 @@
-const Thing = require('../models/Thing');
+const Book = require('../models/Book');
 
 exports.rateBook = (req, res, next) => {
 
@@ -7,12 +7,12 @@ exports.rateBook = (req, res, next) => {
     grade: req.body.rating,
   };
 
-  Thing.findOne({ _id: req.params.id })
-  .then(thing => {
-    console.log(thing);
-    thing.ratings.push(newRating);
-    console.log(thing);
-    thing.save();
+  Book.findOne({ _id: req.params.id })
+  .then(book => {
+    console.log(book);
+    book.ratings.push(newRating);
+    console.log(book);
+    book.save();
   })
   .then(() => {
     res.status(201).json({ message: 'Rating enregistré !' });
