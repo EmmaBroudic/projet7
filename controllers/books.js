@@ -24,17 +24,28 @@ exports.createBook = (req, res, next) => {
 exports.getOneBook = (req, res, next) => {
   Book.findOne({
     _id: req.params.id
-  }).then(
-    (book) => {
+  })
+    .then((book) => {
+      const ratings = book.ratings;
+      let total = 0;
+
+      for (let i = 0; i < ratings.length; i++) {
+        total += ratings[i].grade;
+      }
+
+      // calcul de la moyenne avec un maximum de deux chiffres après la virgule
+      const averageRating = (total / ratings.length).toFixed(2);
+
+      book = book.toObject();
+      book.averageRating = averageRating;
+
       res.status(200).json(book);
-    }
-  ).catch(
-    (error) => {
+    })
+    .catch((error) => {
       res.status(404).json({
         error: error
       });
-    }
-  );
+    });
 };
 
 exports.modifyBook = (req, res, next) => {
