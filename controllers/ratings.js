@@ -1,32 +1,27 @@
 const Thing = require('../models/Thing');
-const Rating = Thing.model('Thing').schema.path('ratings').schema; // Importez le modèle Thing correspondant
+const Rating = require('../models/Rating'); // Importez le modèle Thing correspondant
 
 exports.rateBook = (req, res, next) => {
-console.log(req.body);
-  const ratingObject = req.body;
-  console.log(ratingObject);
-  /*delete ratingObject._id;
-  delete ratingObject._userId;*/
-
-  // Récupérer le modèle Rating
-  /*const Rating = Thing.schema.path('ratings').schema;*/
+  
+  const ratings = req.body;
+  console.log(ratings);
 
   const newRating = new Rating({
-    userId: req.body.userId,
-    rating: req.body.rating,
+    ...ratings,
+    userId: req.auth.userId,
   });
 
-  
-  // Trouver le Thing associé à l'ID et ajouter le nouveau rating
-  Thing.findById(req.params.id)
-    .then(thing => {
-      if (!thing) {
-        throw new Error('Objet non trouvé');
-      }
+  console.log(newRating);
 
-      thing.ratings.push(newRating); // Ajouter le nouveau rating à la liste des ratings
-      return thing.save(); // Sauvegarder les modifications
+  Thing.findOne({ _id: req.params.id })
+    .then(thing => {
+      console.log(thing);
+      thing.ratings.push(newRating);
     })
-    .then(() => res.status(201).json({ message: 'Rating ajouté' }))
-    .catch(error => { res.status(400).json({ error }) });
+    .then(() => {
+      res.status(201).json({ message: 'Rating enregistré !' });
+    })
+    .catch(error => {
+      res.status(400).json({ error });
+    });
 };
