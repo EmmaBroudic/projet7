@@ -7,13 +7,10 @@ exports.rateBook = (req, res, next) => {
     grade: req.body.rating,
   };
 
-  /*const newAverageRating = req.body.rating;*/
-
   Thing.findOne({ _id: req.params.id })
   .then(thing => {
     console.log(thing);
     thing.ratings.push(newRating);
-    /*thing.averageRating.push(newAverageRating);*/
     console.log(thing);
     thing.save();
   })
