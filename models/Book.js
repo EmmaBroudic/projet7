@@ -1,3 +1,8 @@
+/* Dans ce bloc de code, on trouve le schéma qui permettra
+de mettre en forme les données de l'objet livre
+qui seront stockées dans la BDD sous
+un modèle défini */
+
 const mongoose = require('mongoose');
 
 const bookSchema = mongoose.Schema({

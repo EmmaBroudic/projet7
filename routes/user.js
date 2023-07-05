@@ -1,3 +1,7 @@
+/* Routes de l'API correspondant aux requêtes POST
+d'un utilisateur qui souhaite créer un compte ou se
+connecter à l'application */
+
 const express = require('express');
 
 const router = express.Router();

@@ -1,3 +1,10 @@
+/* Routes de l'API correspondant aux requêtes GET,
+POST, PUT, DELETE de récupération, création,
+modification, suppression, notation et calcul
+de la moyenne de notation des objets livres.
+Certaines nécessitent d'être identifié (auth) et/ou
+utilisent le middleware multer */
+
 const express = require('express');
 
 const auth = require('../middlewares/auth');

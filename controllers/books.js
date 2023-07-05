@@ -1,7 +1,12 @@
+/* Ce bloc de code comprend les fonctions qui permettent
+de créer, récupérer, modifier, supprimer les objets livres */
+
 const Book = require('../models/Book');
 
+// Importation du module fs (file system) pour gérer les fichiers
 const fs = require('fs');
 
+// fonction de création d'un nouvel objet livre
 exports.createBook = (req, res, next) => {
   console.log("Test :", req.body);
   const { book } = req.body;
@@ -20,25 +25,12 @@ exports.createBook = (req, res, next) => {
   .catch(error => { res.status(400).json( { error })})
 };
 
-
+// fonction de récupération d'un objet livre précis
 exports.getOneBook = (req, res, next) => {
   Book.findOne({
     _id: req.params.id
   })
-    .then((book) => {/*
-      const ratings = book.ratings;
-      let total = 0;
-
-      for (let i = 0; i < ratings.length; i++) {
-        total += ratings[i].grade;
-      }
-
-      // calcul de la moyenne avec un maximum de deux chiffres après la virgule
-      const averageRating = (total / ratings.length).toFixed(2);
-
-      book = book.toObject();
-      book.averageRating = averageRating;*/
-
+    .then((book) => {
       res.status(200).json(book);
     })
     .catch((error) => {
@@ -48,6 +40,7 @@ exports.getOneBook = (req, res, next) => {
     });
 };
 
+// fonction de modification d'un objet livre
 exports.modifyBook = (req, res, next) => {
   const { book } = req.body;
   const bookObject = req.file ? {
@@ -71,6 +64,7 @@ exports.modifyBook = (req, res, next) => {
       });
 };
 
+// fonction supprimer un objet livre
 exports.deleteBook = (req, res, next) => {
   Book.findOne({ _id: req.params.id})
       .then(book => {
@@ -90,6 +84,7 @@ exports.deleteBook = (req, res, next) => {
       });
 };
 
+// fonction de récupération de l'intégralité des objets livres
 exports.getAllBooks = (req, res, next) => {
   Book.find().then(
     (books) => {
@@ -104,26 +99,14 @@ exports.getAllBooks = (req, res, next) => {
   );
 };
 
+// fonction de récupération des trois meilleurs livres
 exports.getBestBooks = (req, res, next) => {
   Book.find()
 
     .then((books) => {
-
-      console.log("ok");
-      console.log(books);
-
       const averages = books.sort((a, b) => b.averageRating - a.averageRating);
 
       const bestBooks = [averages[0], averages[1], averages[2]];
-
-      console.log(averages);
-
-      console.log(bestBooks);
-
-      console.log("Best book = ", averages[0]);
-      console.log("Best book = ", averages[0].bookId);
-      console.log("Deuxième best book =", averages[1]);
-      console.log("Troisième best book =", averages[2]);
 
       res.status(200).json(bestBooks);
     })

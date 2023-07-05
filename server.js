@@ -1,3 +1,5 @@
+/* Ce bloc de code permet de connecter le backend au port 4000 */
+
 const http = require('http');
 const app = require('./app');
 
@@ -12,6 +14,8 @@ const normalizePort = val => {
   }
   return false;
 };
+
+// Récupération du port à utiliser
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
@@ -35,6 +39,7 @@ const errorHandler = error => {
   }
 };
 
+// Création du serveur HTTP en utilisant l'application Express
 const server = http.createServer(app);
 
 server.on('error', errorHandler);
@@ -44,4 +49,5 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
+// Démarrage du serveur en écoutant le port spécifié
 server.listen(port);
