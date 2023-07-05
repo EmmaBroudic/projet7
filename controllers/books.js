@@ -8,7 +8,7 @@ const fs = require('fs');
 
 // fonction de création d'un nouvel objet livre
 exports.createBook = (req, res, next) => {
-  console.log("Test :", req.body);
+
   const { book } = req.body;
   const bookObject = JSON.parse(book);
   /*delete bookObject._id;*/
