@@ -8,7 +8,7 @@ const resizeImage = (req, res, next) => {
     return next();
   }
   sharp(req.file.path)
-    .resize(20, 20)
+    .resize(200, 200)
     .toFile('images/optimized_' + req.file.filename)
     .then(() => {
       fs.unlinkSync(req.file.path);
