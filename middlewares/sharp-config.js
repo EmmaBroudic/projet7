@@ -9,16 +9,17 @@ const sharp = require('sharp');
 const fs = require('fs');
 
 const resizeImage = (req, res, next) => {
-  if (!req.file) { // vérifie qu'un fichier a bien été téléchargé dans la requête
+  if (!req.file) {
     return next();
   }
-  // Utilisation de Sharp pour redimensionner l'image à 200x200 pixels
   sharp(req.file.path)
-    .resize(200, 200)
+    .resize(370, 600)
     .toFile('images/optimized_' + req.file.filename)
     .then(() => {
-      fs.unlinkSync(req.file.path); // Suppression de l'image d'origine après redimensionnement réussi
-      req.file.path = 'images/optimized_' + req.file.filename; // Mise à jour du chemin du fichier redimensionné dans l'objet req.file
+      // Suppression de l'image d'origine après redimensionnement réussi
+      fs.unlinkSync(req.file.path);
+      // Mise à jour du chemin du fichier redimensionné dans l'objet req.file
+      req.file.path = 'images/optimized_' + req.file.filename;
       next();
     })
     .catch((error) => {
